@@ -1,0 +1,16 @@
+<mat-card>
+  <h2>Parent Dashboard</h2>
+  <button mat-raised-button color="primary">Add Student</button>
+  <button mat-raised-button color="accent">Set Daily Limit</button>
+  <button mat-raised-button>Load Funds</button>
+
+  <table mat-table [dataSource]="rows" class="mat-elevation-z1" style="width:100%;margin-top:16px;">
+    <ng-container matColumnDef="name"><th mat-header-cell *matHeaderCellDef>Student Name</th><td mat-cell *matCellDef="let e">{{e.name}}</td></ng-container>
+    <ng-container matColumnDef="balance"><th mat-header-cell *matHeaderCellDef>Wallet Balance</th><td mat-cell *matCellDef="let e">{{e.balance | currency}}</td></ng-container>
+    <ng-container matColumnDef="dailyLimit"><th mat-header-cell *matHeaderCellDef>Daily Limit</th><td mat-cell *matCellDef="let e">{{e.dailyLimit | currency}}</td></ng-container>
+    <ng-container matColumnDef="spentToday"><th mat-header-cell *matHeaderCellDef>Spent Today</th><td mat-cell *matCellDef="let e">{{e.spentToday | currency}}</td></ng-container>
+    <ng-container matColumnDef="remainingToday"><th mat-header-cell *matHeaderCellDef>Remaining Today</th><td mat-cell *matCellDef="let e">{{e.remainingToday | currency}}</td></ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mat-card>
