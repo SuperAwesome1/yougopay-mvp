@@ -1,0 +1,21 @@
+{
+  "name": "yougopay-functions",
+  "private": true,
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "serve": "firebase emulators:start --only functions",
+    "deploy": "firebase deploy --only functions"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "firebase-admin": "^12.5.0",
+    "firebase-functions": "^5.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

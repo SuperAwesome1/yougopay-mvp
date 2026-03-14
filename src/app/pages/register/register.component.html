@@ -1,0 +1,14 @@
+<mat-card>
+  <h2>Register</h2>
+  <p>Phone + OTP + PIN onboarding is completed via Firebase Auth + Cloud Function validatePin flow.</p>
+  <form [formGroup]="form">
+    <mat-form-field class="full-width">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>PIN</mat-label>
+      <input matInput type="password" maxlength="4" formControlName="pin" />
+    </mat-form-field>
+  </form>
+</mat-card>

@@ -1,0 +1,55 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isParent() {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'PARENT';
+    }
+
+    function isStudent() {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'STUDENT';
+    }
+
+    match /users/{uid} {
+      allow read: if isAuthenticated() && request.auth.uid == uid;
+      allow create: if isAuthenticated() && request.auth.uid == uid;
+      allow update, delete: if false;
+    }
+
+    match /pins/{uid} {
+      allow read, write: if false;
+    }
+
+    match /parents/{parentId} {
+      allow read, write: if isParent() && request.auth.uid == parentId;
+    }
+
+    match /students/{studentId} {
+      allow read: if isParent() && resource.data.parentId == request.auth.uid ||
+                  isStudent() && request.auth.uid == studentId;
+      allow create, update, delete: if isParent() && request.resource.data.parentId == request.auth.uid;
+    }
+
+    match /wallets/{walletId} {
+      allow read: if isParent() &&
+        exists(/databases/$(database)/documents/students/$(resource.data.studentId)) &&
+        get(/databases/$(database)/documents/students/$(resource.data.studentId)).data.parentId == request.auth.uid
+        || isStudent() && resource.data.studentId == request.auth.uid;
+
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    match /transactions/{transactionId} {
+      allow read: if isAuthenticated();
+      allow write: if false;
+    }
+  }
+}

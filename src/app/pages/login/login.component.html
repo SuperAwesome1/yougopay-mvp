@@ -1,0 +1,23 @@
+<mat-card>
+  <h2>Login</h2>
+  <form [formGroup]="form">
+    <mat-form-field class="full-width">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="button" (click)="requestOtp()">Send OTP</button>
+
+    <mat-form-field class="full-width">
+      <mat-label>OTP</mat-label>
+      <input matInput formControlName="otp" />
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>PIN</mat-label>
+      <input matInput type="password" formControlName="pin" maxlength="4" />
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="button" (click)="verifyOtpAndLogin()">Login</button>
+  </form>
+  <div id="recaptcha-container"></div>
+</mat-card>

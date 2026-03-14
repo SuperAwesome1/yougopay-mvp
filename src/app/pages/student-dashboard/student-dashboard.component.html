@@ -1,0 +1,9 @@
+<mat-card>
+  <h2>Student Dashboard</h2>
+  <p>Wallet Balance: <strong>{{ balance | currency }}</strong></p>
+  <p>Remaining Daily Limit: <strong>{{ remaining | currency }}</strong></p>
+
+  <mat-list>
+    <mat-list-item *ngFor="let tx of transactions">{{tx.type}} - {{tx.amount | currency}} ({{tx.description}})</mat-list-item>
+  </mat-list>
+</mat-card>
